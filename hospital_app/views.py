@@ -18,8 +18,11 @@ def login_page(request):
         user_objs = authenticate(username = username, password = password)
 
         if not user_objs:
-            context = {'error': 'Invalid password'}
-        return render(request, 'login.html', context)
+          context = {'error': 'Invalid password'}
+          return render(request, 'login.html', context)
+        login(request, user_objs)
+        return redirect('/') 
+    
     return render(request, 'login.html')
 
 

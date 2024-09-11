@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+         .hero {
+            background: url('/media/bg2.jpg') no-repeat center center/cover;
+            height: 600px;
+            color: Blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 4rem;
+        }
+        .services, .doctors {
+            padding: 50px 0;
+        }
+       .doctor-image{
+        width:100%;
+        height: auto;
+        object-fit:cover;
+       }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">HospitalApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Departments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#doctors">Doctors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div> 
+            
+
+            <h1>Welcome to Our Hospital</h1>
+            <p>Your Health, Our Priority</p>
+            
+        </div>
+    </div>
+
+  
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="doctors text-center">
+        <div class="container">
+            <h2 class="mb-5">Meet Our Doctors</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="/media/doc1.jpg" class="doctor-image mb-3" alt="Doctor">
+                    <h5>Dr. Sarah Johnson</h5>
+                    <p>Cardiologist</p>
+                    <p>visit: 550</p>
+                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                </div>
+                <div class="col-md-3">
+                    <img src="/media/doc2.jpg"class="doctor-image mb-3" alt="Doctor">
+                    <h5>Dr. John Doe</h5>
+                    <p>Neurologist</p>
+                     <p>visit: 650</p>
+                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                </div>
+                <div class="col-md-3">
+                    <img src="/media/doc3.jpg"class="doctor-image mb-3" alt="Doctor">
+                    <h5>Dr. Emily Smith</h5>
+                    <p>General Physician</p>
+                     <p>visit: 1000</p>
+                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                </div>
+                <div class="col-md-3">
+                    <img src="/media/doc4.jpg" class="doctor-image mb-3" alt="Doctor">
+                    <h5>Dr. Robert Brown</h5>
+                    <p>Surgeon</p>
+                      <p>visit: 1500</p>
+                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+

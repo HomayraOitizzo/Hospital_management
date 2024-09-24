@@ -38,19 +38,26 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <form method='GET'>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+              <li class="nav-item"> 
+                    <input name="search" value="{{search}}" class="form-control" placeholder="Department">       
+                   
+              
                 <li class="nav-item">
-                    <a class="nav-link" href="#services">Departments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#doctors">Doctors</a>
+                    <input name="search" value="{{search}}" class="form-control" placeholder="Docs or deps">
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">Login</a>
                 </li>
+                <div class="col-md-4">
+                     
+                    <button style="margin-top: 30px;" type="submit" class="btn btn-success">Find</button>
+                </div>
             </ul>
         </div>
+        <form>
     </nav>
 
     <!-- Hero Section -->
@@ -71,36 +78,20 @@
         <div class="container">
             <h2 class="mb-5">Meet Our Doctors</h2>
             <div class="row">
+                {% for doctor_obj in doctor_objs%}
                 <div class="col-md-3">
-                    <img src="/media/doc1.jpg" class="doctor-image mb-3" alt="Doctor">
-                    <h5>Dr. Sarah Johnson</h5>
-                    <p>Cardiologist</p>
-                    <p>visit: 550</p>
-                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                    <img class="img-fluid" src="/media/{{doctor_obj.images.first.images}}" alt="Card image cap">
+                    <h5>{{doctor_obj.doctors_name}}</h5>
+                    <p>{{doctor_obj.description}}</p>
+                     <p>{{doctor_obj.doctors_visit}}</p>
                 </div>
-                <div class="col-md-3">
-                    <img src="/media/doc2.jpg"class="doctor-image mb-3" alt="Doctor">
-                    <h5>Dr. John Doe</h5>
-                    <p>Neurologist</p>
-                     <p>visit: 650</p>
-                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                <div>
+                   <a href="{% url 'doctors_details' doctor_obj.uid %}" class="btn btn-primary">View</a>
+
                 </div>
-                <div class="col-md-3">
-                    <img src="/media/doc3.jpg"class="doctor-image mb-3" alt="Doctor">
-                    <h5>Dr. Emily Smith</h5>
-                    <p>General Physician</p>
-                     <p>visit: 1000</p>
-                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
-                </div>
-                <div class="col-md-3">
-                    <img src="/media/doc4.jpg" class="doctor-image mb-3" alt="Doctor">
-                    <h5>Dr. Robert Brown</h5>
-                    <p>Surgeon</p>
-                      <p>visit: 1500</p>
-                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
-                </div>
+                {% endfor %}
             </div>
-        </div>
+        </div> 
     </section>
 
 

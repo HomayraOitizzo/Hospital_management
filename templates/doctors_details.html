@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+
+{% block start%}
+<div class="container">
+    <h1>{{ doctor_obj.doctors_name }}</h1>
+    <p><strong>Visit Number:</strong> {{ doctor_obj.doctors_visit }}</p>
+    <p><strong>Department:</strong> {{ doctor_obj.description }}</p>
+    <img src="/media/{{ doctor_obj.images.first.images }}" class="img-fluid" style="width:50%" alt="{{ doctor_obj.doctors_name }}">
+    {% if request.user.is_authenticated%}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="col-md-12">
+            <label for="mintopay">Date</label>
+            <p>
+                <input type="date" name="appointment_date" id="appointment_date" class="form-control">
+            </p>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-primary btn-block" value="Book">
+            </div>
+        </div>
+    </form>
+    
+{% else %}
+<a href="{/login/}" class="btn btn-primary mt-5 ">Login</a> 
+{% endif %}
+</div>
+
+{%endblock%}

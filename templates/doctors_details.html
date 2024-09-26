@@ -21,9 +21,12 @@
             </div>
         </div>
     </form>
+    {% if availble %}
+    <div class="alert alert-danger mt-3">{{ availble }}</div>
+{% endif %}
     
 {% else %}
-<a href="{/login/}" class="btn btn-primary mt-5 ">Login</a> 
+<a href="{%url 'login'%}" class="btn btn-primary mt-5">Login</a>
 {% endif %}
 </div>
 

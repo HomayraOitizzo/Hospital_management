@@ -11,11 +11,11 @@ def check_appoinment( uid , appointment_date, appoinment_count):
         appointment_date__lte = appointment_date,
         doctor__uid = uid,
     )
-    if qs.count() < appoinment_count:
-        return True
+    if qs.count() >= appoinment_count:
+        return False
     
     # Otherwise, return False (unavailable)
-    return False
+    return True
 def home(request):
     department_objs = Department.objects.all()
     doctor_objs = Doctor_details.objects.all()
@@ -31,63 +31,49 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-# def doctors_details(request, uid):
-#     doctor_obj = Doctor_details.objects.get(uid=uid)
-
-#     if request.method == 'POST':
-#         appointment_date_str = request.POST.get('appointment_date')
-
-#         # Print the appointment date to see what is being sent
-#         print("Appointment Date Received: ", appointment_date_str)
-
-#         if not appointment_date_str:
-#             return render(request, 'doctors_details.html', {
-#                 'doctor_obj': doctor_obj,
-#                 'error': "Please provide an appointment date."
-#             })
-        
-#         # Parse the appointment date into a datetime object
-#         try:
-#             appointment_date = datetime.strptime(appointment_date_str, '%Y-%m-%d').date()
-#         except ValueError:
-#             return render(request, 'doctors_details.html', {
-#                 'doctor_obj': doctor_obj,
-#                 'error': "Invalid date format. Please use YYYY-MM-DD."
-#             })
-
-#         # Check if the appointment limit is exceeded
-#         if not check_appoinment(uid, appointment_date, doctor_obj.appoinment_count):
-#             return render(request, 'doctors_details.html', {
-#                 'doctor_obj': doctor_obj,
-#                 'error': "Appointment not available"
-#             })
-
-#         # Create the appointment using the provided date
-#         appointment.objects.create(
-#             doctor=doctor_obj, 
-#             appointment_date=appointment_date, 
-#             user=request.user
-#         )
-#         return redirect('home')
-
-#     context = {'doctor_obj': doctor_obj}
-#     return render(request, 'doctors_details.html', context)
 def doctors_details(request, uid):
     doctor_obj = Doctor_details.objects.get(uid=uid)
 
     if request.method == 'POST':
-        appointment_date = request.POST.get('appointment_date')
+        appointment_date_str = request.POST.get('appointment_date')
 
+        # Print the appointment date to see what is being sent
+        print("Appointment Date Received: ", appointment_date_str)
 
-        if not check_appoinment(uid, appointment_date, doctor_obj.appoinment_count):
-            return render(request, 'doctors_details.html', {'doctor_obj': doctor_obj, 'error': "Appointment not available"})
-
+        if not appointment_date_str:
+            return render(request, 'doctors_details.html', {
+                'doctor_obj': doctor_obj,
+                'error': "Please provide an appointment date."
+            })
         
-        appointment.objects.create(doctor=doctor_obj, appointment_date=appointment_date, user=request.user)
+        # Parse the appointment date into a datetime object
+        try:
+            appointment_date = datetime.strptime(appointment_date_str, '%Y-%m-%d').date()
+        except ValueError:
+            return render(request, 'doctors_details.html', {
+                'doctor_obj': doctor_obj,
+                'error': "Invalid date format. Please use YYYY-MM-DD."
+            })
+
+        # Check if the appointment limit is exceeded
+        if not check_appoinment(uid, appointment_date, doctor_obj.appoinment_count):
+              return render(request, 'doctors_details.html', {
+                'doctor_obj': doctor_obj,
+                'availble': "Appointment not available on that day"
+            })
+          
+          
+        # Create the appointment using the provided date
+        appointment.objects.create(
+            doctor=doctor_obj, 
+            appointment_date=appointment_date, 
+            user=request.user
+        )
         return redirect('home')
 
     context = {'doctor_obj': doctor_obj}
     return render(request, 'doctors_details.html', context)
+
 
 def login_page(request):
     if request.method == 'POST':
